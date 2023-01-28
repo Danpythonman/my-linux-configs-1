@@ -1,0 +1,8 @@
+alias.treelog log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+
+alias.saplinglog log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+alias.sproutlog log --all --graph --decorate --oneline --simplify-by-decoration
+
+alias.aliases config --get-regexp '^alias\.'
+
