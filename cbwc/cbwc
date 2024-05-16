@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# CBWC: ClipBoard Word Count
+#
+# To make this work:
+#
+# 1. Make sure `xclip` and `python3` are installed.
+# 2. Make sure `~/cbwc.py` exists.
+# 3. Add this file to the directory `/usr/local/bin`.
+# 4. Make this file is executable by running the following command:
+#
+#        sudo chmod +x /usr/local/bin/cbwc
+
+python3 ~/cbwc.py
+
