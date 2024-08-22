@@ -8,21 +8,23 @@
 
 (package-initialize)
 
-(add-hook 'after-init-hook 'global-company-mode)
-
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
+;; Vertical line
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 (setq column-number-mode t)
 
+;; Show line containing opening parenthesis
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; Line numbers
 (setq display-line-numbers-type 'absolute) 
 (global-display-line-numbers-mode)
 
+;; Indentation
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq c-basic-offset 4)
@@ -59,6 +61,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
  '(package-selected-packages
    '(company-irony tabbar session pod-mode muttrc-mode mutt-alias markdown-mode initsplit htmlize graphviz-dot-mode folding eproject diminish csv-mode company color-theme-modern browse-kill-ring boxquote bm bar-cursor apache-mode vscode-dark-plus-theme auto-complete)))
 (custom-set-faces
@@ -67,3 +70,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun open-cheat-sheet ()
+  "Open the Emacs cheat sheet buffer in a side window."
+  (let ((cheat-sheet-file (expand-file-name "~/emacs_cheat_sheet.md"))
+        (main-buffer (current-buffer)))
+    (when (file-exists-p cheat-sheet-file)
+      (split-window-right)          ; Split the window vertically
+      (other-window 1)              ; Switch to the new window
+      (find-file cheat-sheet-file)  ; Open the cheat sheet file
+      (setq buffer-read-only t)     ; Make the buffer read-only
+      (other-window -1)             ; Switch back to the main window
+      (select-window (get-buffer-window main-buffer))))) ; Focus back on the main buffer
+
+;; Open the cheat sheet in a side window on startup
+(add-hook 'emacs-startup-hook 'open-cheat-sheet)
