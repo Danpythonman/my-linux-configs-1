@@ -1,0 +1,115 @@
+# Create a Vim cheat sheet as a text file
+
+vim_cheat_sheet = """
+Vim Cheat Sheet
+===============
+
+Modes
+-----
+1. Normal Mode: Press `Esc` to enter.
+2. Insert Mode: Press `i` to enter.
+3. Visual Mode: Press `v` to enter.
+
+Basic Commands
+--------------
+1. `:q`              - Quit Vim.
+2. `:q!`             - Quit without saving.
+3. `:w`              - Save the file.
+4. `:wq` or `ZZ`     - Save and quit.
+5. `u`               - Undo the last action.
+6. `Ctrl + r`        - Redo the last undone change.
+
+Navigation
+----------
+1. `h`               - Move left.
+2. `j`               - Move down.
+3. `k`               - Move up.
+4. `l`               - Move right.
+5. `w`               - Jump to the beginning of the next word.
+6. `b`               - Jump to the beginning of the previous word.
+7. `0` (zero)        - Move to the beginning of the line.
+8. `$`               - Move to the end of the line.
+9. `gg`              - Go to the beginning of the file.
+10. `G`              - Go to the end of the file.
+11. `:n`             - Go to line n.
+12. H                - Move cursor to top ("high").
+13. M                - Move cursor to middle ("middle").
+14. L                - Move cursor to bottom ("low").
+15. A                - Move to end of line and enter insert mode.
+16. `Ctrl + b`       - Move full page up.
+17. `Ctrl + f`       - Move full page down.
+18. `Ctrl + u`       - Move half page up.
+19. `Ctrl + d`       - Move half page down.
+
+Editing
+-------
+1. `i`               - Insert before the cursor.
+2. `I`               - Insert at the beginning of the line.
+3. `a`               - Insert after the cursor.
+4. `A`               - Insert at the end of the line.
+5. `o`               - Open a new line below the current line.
+6. `O`               - Open a new line above the current line.
+7. `x`               - Delete the character under the cursor.
+8. `dd`              - Delete the current line.
+9. `yy`              - Copy (yank) the current line.
+10. `p`              - Paste after the cursor.
+11. `P`              - Paste before the cursor.
+12. `r`              - Replace the character under the cursor.
+13. `cw`             - Change the current word.
+
+Search & Replace
+----------------
+1. `/pattern`        - Search for 'pattern'.
+2. `n`               - Repeat search in the same direction.
+3. `N`               - Repeat search in the opposite direction.
+4. `:%s/old/new/g`   - Replace 'old' with 'new' throughout the file.
+5. `:%s/old/new/gc`  - Replace 'old' with 'new' throughout the file with confirmation.
+
+Visual Mode Commands
+---------------------
+1. `v`               - Start visual mode, mark lines, then operate (e.g., delete, yank).
+2. `V`               - Start linewise visual mode.
+3. `Ctrl + v`        - Start blockwise visual mode.
+4. `d`               - Delete selection.
+5. `y`               - Yank (copy) selection.
+6. `>`               - Indent selection.
+7. `<`               - Outdent selection.
+
+Buffers, Windows, and Tabs
+--------------------------
+1. `:e filename`     - Open a file in a new buffer.
+2. `:bnext` or `:bn` - Go to the next buffer.
+3. `:bprev` or `:bp` - Go to the previous buffer.
+4. `:bd`             - Delete (close) a buffer.
+5. `:split`          - Split the window horizontally.
+6. `:vsplit`         - Split the window vertically.
+7. `Ctrl + w` + `w`  - Switch between windows.
+8. `:tabnew filename`- Open a file in a new tab.
+9. `gt`              - Go to the next tab.
+10. `gT`             - Go to the previous tab.
+11. `:tabclose`      - Close the current tab.
+
+Terminal Mode
+-------------
+1. `:term`      - Open terminal.
+2. `Ctrl-w + N" - Enter Terminal-Normal mode.
+3. i            - Go back to entering commands in terminal.
+
+Miscellaneous
+-------------
+1. `:help` or `F1`     - Open help.
+2. `:syntax on`        - Enable syntax highlighting.
+3. `:set number`       - Show line numbers.
+4. `:set nonumber`     - Hide line numbers.
+5. `:set ignorecase`   - Ignore case in search patterns.
+6. `:set noignorecase` - Case-sensitive search.
+7. `:noh`              - Stop highlighting.
+"""
+
+# Save the cheat sheet to a text file
+file_path = '/mnt/data/vim_cheat_sheet.txt'
+
+with open(file_path, 'w') as file:
+    file.write(vim_cheat_sheet)
+
+file_path
