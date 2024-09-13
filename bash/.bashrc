@@ -125,3 +125,11 @@ export NVM_DIR="$HOME/.nvm"
 
 alias ssh-local="ssh -XY -p 3022 daniel@127.0.0.1"
 alias kdenlive="flatpak run org.kde.kdenlive"
+
+# Load pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Load pyenv virtualenv
+eval "$(pyenv virtualenv-init -)"
