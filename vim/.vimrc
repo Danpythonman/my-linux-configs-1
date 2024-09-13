@@ -67,6 +67,24 @@ set showcmd
 set splitbelow   " Open new horizontal splits below the current window
 set splitright   " Open new vertical splits to the right of the current window
 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" YCM
+Plugin 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
 " Enable file type detection and plugin support
 filetype plugin indent on
 
@@ -82,7 +100,7 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 " Open the Vim cheat sheet in a vertical split
-autocmd VimEnter * execute "vsplit ~/.vim/vim_cheat_sheet.txt" | wincmd h
+" autocmd VimEnter * execute \"vsplit ~/.vim/vim_cheat_sheet.txt\" | wincmd h
 
 " Plugins can be added below (if using a plugin manager like vim-plug or Vundle)
 " e.g., Plug 'tpope/vim-sensible'
@@ -94,6 +112,15 @@ endif
 
 " Set color scheme
 colorscheme codedark
+
+command! -nargs=1 Vimh echo system('Vimh ' . <q-args>)
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
 
 " End of vimrc
 

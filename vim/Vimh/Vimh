@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+
+import argparse
+
+def main():
+
+    vim_commands = {
+        "copy": {
+            "keywords": [
+                "copy",
+                "highlighting"
+            ],
+            "info": """
+Shift + V for highlighting lines in visual mode.
+Ctrl + V  for highlighting lines in block mode.
+y         to yank (copy) the lines.
+:noh      to stop highlighting.
+
+---
+Use tmux if you need to copy from vim when in an ssh session.
+---"""
+        },
+        "window": {
+            "keywords": [
+                "window",
+                "buffer",
+                "switch",
+                "split",
+                "tab",
+                "tabs"
+            ],
+            "info": """
+:split         for splitting screen horzontally.
+:vsplit        for splitting screen vertically.
+:vs            for splitting screen vertically.
+Ctrl + w w     for switching between windows.
+:e <file>      for filling a buffer in a file.
+:tabnew <file> open file in new tab.
+gt             next tab.
+gT             previous tab.
+:tabclose      close current tab.
+:bnext         go to next buffer.
+:bn            go to next buffer.
+:bprev         go to previous buffer.
+:bp            go to previous buffer.
+:bd            delete (close) current buffer.
+"""
+        },
+        "line": {
+            "keywords": [
+                "line"
+            ],
+            "info": """
+0 (zero) go to beginning of line.
+$        go to end of line.
+A        go to end of line in editing mode.
+zz       make current line in the center of the screen."""
+        },
+        "navigation": {
+            "keywords": [
+                "navigation",
+                "nav",
+                "move",
+                "movement"
+            ],
+            "info": """
+h        left.
+j        down.
+k        up.
+l        right.
+w        next word.
+b        previous word.
+0 (zero) move to beginning of line.
+$        move to end of line.
+A        move to end of line in insert mode.
+gg       move to beginning of file.
+G        move to end of file.
+:n       go to line n.
+H        move to top of screen (high).
+M        move to middle of screen (middle).
+L        move to bottom of screen (Low).
+Ctrl + b move full page up.
+Ctrl + u move half page up.
+Ctrl + f move full page down.
+Ctrl + d move half page down."""
+        },
+        "tmux": {
+            "keywords": [
+                "tmux"
+            ],
+            "info": """
+tmux       enter tmux mode.
+Ctrl + b [ enter copying mode in tmux.
+Spacebar   start highlighting.
+Enter      copy and stop highlighting
+Ctrl + b ] paste.
+exit       exit tmux mode."""
+        },
+        "editing": {
+            "keywords": [
+               "edit",
+               "editing",
+               "deleting",
+               "delete",
+               "copying",
+               "copy",
+               "paste",
+               "pasting"
+            ],
+            "info": """
+i  insert before cursor.
+I  insert at beginning of line.
+a  insert after cursor.
+A  insert at end of line.
+o  open a new line below the cursor.
+O  open a new line above the cursor.
+x  delete character under the cursor.
+dd delete (and copy) current line.
+yy yank (copy) current line.
+p  paste after cursor.
+P  paste before cursor.
+r  replace character under the cursor.
+cw change the current word"""
+        },
+        "terminal": {
+            "keywords": [
+                "terminal",
+                "term"
+            ],
+            "info": """
+:term      open terminal.
+Ctrl + w N enter terminal-normal mode (scroll through terminal).
+i          go back to entering commands in terminal."""
+        }
+    }
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action")
+    args = parser.parse_args()
+    input_action = args.action.lower()
+
+    for action, details in vim_commands.items():
+        if input_action in details["keywords"]:
+            print(details["info"].strip())
+            return
+
+    print("Unknown command")
+
+if __name__ == "__main__":
+    main()
+
