@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Sets up various tools.
+
+# Setup cbwb tool
+bash cbwc/setup.sh
+
+# Setup Vimh tool
+bash vim/Vimh/setup.sh
