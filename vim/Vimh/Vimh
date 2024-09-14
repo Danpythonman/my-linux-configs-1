@@ -108,19 +108,24 @@ exit       exit tmux mode."""
                "pasting"
             ],
             "info": """
-i  insert before cursor.
-I  insert at beginning of line.
-a  insert after cursor.
-A  insert at end of line.
-o  open a new line below the cursor.
-O  open a new line above the cursor.
-x  delete character under the cursor.
-dd delete (and copy) current line.
-yy yank (copy) current line.
-p  paste after cursor.
-P  paste before cursor.
-r  replace character under the cursor.
-cw change the current word"""
+i   insert before cursor.
+I   insert at beginning of line.
+a   insert after cursor.
+A   insert at end of line.
+o   open a new line below the cursor.
+O   open a new line above the cursor.
+x   delete character under the cursor.
+dd  delete (and copy) current line.
+yy  yank (copy) current line.
+p   paste after cursor.
+P   paste before cursor.
+r   replace character under the cursor.
+cw  change the current word.
+0D  delete an entire line except the line break.
+d0  delete from the beginning of the line to the cursor.
+d$  delete from the cursor to the end of the line.
+dvb delete one full word backwards.
+dve delete one full word backwards."""
         },
         "terminal": {
             "keywords": [
@@ -131,6 +136,19 @@ cw change the current word"""
 :term      open terminal.
 Ctrl + w N enter terminal-normal mode (scroll through terminal).
 i          go back to entering commands in terminal."""
+        },
+        "search": {
+            "keywords": [
+                "search",
+                "find",
+                "replace"
+            ],
+            "info": """
+/ <search>               search, press enter then press n to search for next occurrence.
+? <search>               search, press enter then press n to search for previous occurrence.
+:%s/<search>/<replace>/g search and replace globally in the file.
+:s/<search>/<replace>/g  search and replace one occurrence.
+"""
         }
     }
 
