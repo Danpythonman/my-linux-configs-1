@@ -124,12 +124,27 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias ssh-local="ssh -XY -p 3022 daniel@127.0.0.1"
+alias ssh-pi="ssh daniel@raspberrypi.local"
+alias ssh-cloud="gnome-terminal --window-with-profile=SSH -- ssh daniel@ssh.danieldigiovanni.com"
 alias kdenlive="flatpak run org.kde.kdenlive"
 
 # Load pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 
 # Load pyenv virtualenv
 eval "$(pyenv virtualenv-init -)"
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/daniel/google-cloud-sdk/path.bash.inc' ]; then . '/home/daniel/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/daniel/google-cloud-sdk/completion.bash.inc' ]; then . '/home/daniel/google-cloud-sdk/completion.bash.inc'; fi
+
+# Detect if we are in an SSH session
+if [ -n "$SSH_CONNECTION" ]; then
+    # Set a custom prompt with a different color for SSH sessions
+    PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[38;5;226m\]\u@\h\[\033[00m\]:\[\033[38;5;208m\]\w\[\033[00m\]\[\033[38;5;150m\](SSH)\[\033[00m\]\$ '
+fi
