@@ -7,3 +7,6 @@ bash cbwc/setup.sh
 
 # Setup Vimh tool
 bash vim/Vimh/setup.sh
+
+# Setup lines tool
+bash lines/setup.sh
