@@ -15,6 +15,6 @@ python3 -m venv /opt/pdftools/venv
 
 echo "#!/bin/bash" > /usr/local/bin/pdftools
 echo "" >> /usr/local/bin/pdftools
-echo "/opt/pdftools/venv/bin/python3 /opt/pdftools/src/pdftools/interface/cli" >> /usr/local/bin/pdftools
+echo "/opt/pdftools/venv/bin/python3 /opt/pdftools/src/pdftools/interface/cli \"$@\"" >> /usr/local/bin/pdftools
 
 chmod +x /usr/local/bin/pdftools
