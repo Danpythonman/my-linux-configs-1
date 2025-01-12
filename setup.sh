@@ -13,3 +13,6 @@ bash lines/setup.sh
 
 # Setup tasksync tool
 bash task/setup.sh
+
+# Setup pdftools tool
+bash pdftools/setup.sh
