@@ -41,14 +41,28 @@ pull_changes() {
 
 # Function to commit and push changes
 sync_changes() {
+    pull_changes
+
     if [[ `git status --porcelain` ]]; then
+        echo 'Exporting tasks...'
+
+        task status=pending export > tasks.json
+
+        echo 'Saving tasks to remote...'
+
         git add -A
 
         git commit -m "Automated commit: $(date +"%Y-%m-%d %H:%M:%S")"
 
-        pull_changes
-
         git push origin master
+
+        echo 'Waiting...'
+
+        sleep 3
+
+        echo 'Syncing on server'
+
+        ssh pi "cd task ; git pull origin master"
     else
         echo "No changes to commit"
     fi
