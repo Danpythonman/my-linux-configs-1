@@ -16,3 +16,6 @@ bash task/setup.sh
 
 # Setup pdftools tool
 bash pdftools/setup.sh
+
+# Setup update-code tool
+bash vscode/setup.sh
