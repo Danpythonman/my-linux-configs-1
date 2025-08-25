@@ -116,35 +116,73 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PATH:/opt/intellij-2024.1.1/idea-IU-241.15989.150/bin"
-alias shh="systemctl suspend"
+# Load pyenv automatically by appending
+# the following to
+# ~/.bash_profile if it exists, otherwise ~/.profile (for login shells)
+# and ~/.bashrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+
+# Restart your shell for the changes to take effect.
+
+# Load pyenv-virtualenv automatically by adding
+# the following to ~/.bashrc:
+
+eval "$(pyenv virtualenv-init -)"
+
+alias cd-capstone="cd '/home/daniel/York/ENG Y5/Fall Term/ENG4000/'"
+alias cd-semester="cd '/home/daniel/York/ENG Y5/Winter Term/'"
+
+# PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;141m\](${PS1_CMD1})\[\e[0m\] \[\e[38;5;216m\]\u\[\e[0m\]@\[\e[38;5;216m\]\h\[\e[0m\]:\[\e[38;5;122m\]\w\[\e[0m\] \[\e[38;5;117m\]\t\[\e[0m\]\\$ '
+
+PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;141m\](${PS1_CMD1})\[\e[0m\] \[\e[38;5;216m\]\u\[\e[0m\]@\[\e[38;5;216m\]\h\[\e[0m\]:\[\e[38;5;122m\]\w\[\e[0m\] \[\e[38;5;117m\]\t\[\e[0m\]\n$ '
+
+PROMPT_DIRTRIM=1
+
+alias shh='systemctl suspend'
+alias tlatoolbox='/opt/tlatoolbox/toolbox/toolbox'
+
+dateiso() {
+    date -d "$*" +%Y-%m-%dT%H:%M:%S%z
+}
+
+datehr() {
+    date -d "$*"
+}
+
+alias nbg="nautilus . &> /dev/null &"
+
+export PATH=$PATH:/usr/local/go/bin
+
+alias nvidia-reload='sudo rmmod nvidia_uvm && sleep 1 && sudo modprobe nvidia_uvm'
+
+alias thun='thunar >/dev/null 2>&1 &'
+
+alias c='clear'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias ssh-local="ssh -XY -p 3022 daniel@127.0.0.1"
-alias ssh-pi="ssh daniel@raspberrypi.local"
-alias ssh-cloud="gnome-terminal --window-with-profile=SSH -- ssh daniel@ssh.danieldigiovanni.com"
-alias kdenlive="flatpak run org.kde.kdenlive"
-
-# Load pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-# Load pyenv virtualenv
-eval "$(pyenv virtualenv-init -)"
-
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/daniel/google-cloud-sdk/path.bash.inc' ]; then . '/home/daniel/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/daniel/google-cloud-sdk/completion.bash.inc' ]; then . '/home/daniel/google-cloud-sdk/completion.bash.inc'; fi
-
-# Detect if we are in an SSH session
-if [ -n "$SSH_CONNECTION" ]; then
-    # Set a custom prompt with a different color for SSH sessions
-    PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[38;5;226m\]\u@\h\[\033[00m\]:\[\033[38;5;208m\]\w\[\033[00m\]\[\033[38;5;150m\](SSH)\[\033[00m\]\$ '
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/daniel/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/daniel/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/daniel/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/daniel/miniconda3/bin:$PATH"
+    fi
 fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="/home/daniel/.local/bin:$PATH"
