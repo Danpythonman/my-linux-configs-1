@@ -135,11 +135,10 @@ eval "$(pyenv virtualenv-init -)"
 alias cd-capstone="cd '/home/daniel/York/ENG Y5/Fall Term/ENG4000/'"
 alias cd-semester="cd '/home/daniel/York/ENG Y5/Winter Term/'"
 
-# PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;141m\](${PS1_CMD1})\[\e[0m\] \[\e[38;5;216m\]\u\[\e[0m\]@\[\e[38;5;216m\]\h\[\e[0m\]:\[\e[38;5;122m\]\w\[\e[0m\] \[\e[38;5;117m\]\t\[\e[0m\]\\$ '
-
-PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;141m\](${PS1_CMD1})\[\e[0m\] \[\e[38;5;216m\]\u\[\e[0m\]@\[\e[38;5;216m\]\h\[\e[0m\]:\[\e[38;5;122m\]\w\[\e[0m\] \[\e[38;5;117m\]\t\[\e[0m\]\n$ '
-
 PROMPT_DIRTRIM=1
+if [ -f ~/.bash_prompt ]; then
+    . ~/.bash_prompt
+fi
 
 alias shh='systemctl suspend'
 alias tlatoolbox='/opt/tlatoolbox/toolbox/toolbox'
