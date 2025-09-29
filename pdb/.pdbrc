@@ -1,0 +1,11 @@
+# This imports the debugging helper functions into a PDB session.
+
+import sys
+import os
+
+# Add the home directory to the sys path. The pdbrc_helpers.py file should be
+# in the home directory.
+sys.path.insert(0, os.path.expanduser('~'))
+
+# Import all the helper functions from pdbrc_helpers.py.
+from pdbrc_helpers import *
