@@ -1,0 +1,25 @@
+Host gcp
+    HostName 34.123.59.146
+    User daniel
+    Port 22
+Host pilocal
+    HostName raspberrypi.local
+    User daniel
+    Port 22
+Host pi
+    HostName ssh.danieldigiovanni.com
+    User daniel
+    ProxyCommand cloudflared access ssh --hostname %h
+Host pi5local
+    HostName pi5.local
+    User daniel
+    Port 22
+Host pi5
+    HostName pi5.danieldigiovanni.com
+    User daniel
+    ProxyCommand cloudflared access ssh --hostname %h
+Host aws
+    HostName 35.173.1.47
+    User admin
+    IdentityFile <KEYPAIR.pem>
+    Port 22
