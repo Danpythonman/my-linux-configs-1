@@ -9,4 +9,4 @@ sudo cp lines/lines /usr/local/bin
 sudo chmod +x /usr/local/bin/lines
 
 # Copy completion to Bash completions directory
-cp lines/lines.complete.sh /etc/bash_completion.d
+cp lines/lines.completion.sh /etc/bash_completion.d
