@@ -69,26 +69,27 @@ require("lazy").setup({
         end,
     },
 
-
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                auto_install = true,
-                highlight = { enable = true },
-                indent = { enable = true },
-                ensure_installed = {
-                    "lua",
-                    "python",
-                    "cpp",
-                    "javascript",
-                    "json",
-                    "html",
-                    "bash"
-                },
-            })
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {
+            auto_install = true,
+            highlight = { enable = true },
+            indent = { enable = true },
+            ensure_installed = {
+                "lua",
+                "python",
+                "cpp",
+                "javascript",
+                "json",
+                "html",
+                "bash"
+            },
+        },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
         end,
     },
 
@@ -113,12 +114,18 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp"
         },
         config = function()
-            require("mason-lspconfig").setup()
-            local lspconfig = require("lspconfig")
+            require("mason-lspconfig").setup({
+                ensure_installed = { "lua_ls", "pyright", "ts_ls" }
+            })
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            lspconfig.lua_ls.setup({ capabilities = capabilities })
-            lspconfig.pyright.setup({ capabilities = capabilities })
-            lspconfig.ts_ls.setup({ capabilities = capabilities })
+            -- Use the new vim.lsp.config API
+            vim.lsp.config('*', {
+                capabilities = capabilities,
+            })
+            -- Enable LSP servers
+            vim.lsp.enable('lua_ls')
+            vim.lsp.enable('pyright')
+            vim.lsp.enable('ts_ls')
         end,
     },
 
