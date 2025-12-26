@@ -126,4 +126,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Instead of `exit` killing a tmux session, it just detaches from it
+if [ -n "$TMUX" ]; then
+    exit() {
+        tmux detach-client
+    }
+fi
+
+
 export PATH="$HOME/.local/bin:$PATH"
