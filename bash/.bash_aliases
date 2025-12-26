@@ -23,3 +23,5 @@ alias c='clear'
 taskr() {
     ssh aws -- "task $@"
 }
+
+export PATH=$PATH:/usr/local/go/bin

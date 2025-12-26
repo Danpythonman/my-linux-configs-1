@@ -84,6 +84,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+PROMPT_DIRTRIM=1
+if [ -f ~/.bash_prompt ]; then
+    . ~/.bash_prompt
+fi
+
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -103,6 +108,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+# Machine-specific configs
+if [[ -f ~/.bashrc.local ]]; then
+    source ~/.bashrc.local
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -127,61 +137,4 @@ eval "$(pyenv init - bash)"
 
 # Restart your shell for the changes to take effect.
 
-# Load pyenv-virtualenv automatically by adding
-# the following to ~/.bashrc:
-
-eval "$(pyenv virtualenv-init -)"
-
-alias cd-capstone="cd '/home/daniel/York/ENG Y5/Fall Term/ENG4000/'"
-alias cd-semester="cd '/home/daniel/York/ENG Y5/Winter Term/'"
-
-PROMPT_DIRTRIM=1
-if [ -f ~/.bash_prompt ]; then
-    . ~/.bash_prompt
-fi
-
-alias shh='systemctl suspend'
-alias tlatoolbox='/opt/tlatoolbox/toolbox/toolbox'
-
-dateiso() {
-    date -d "$*" +%Y-%m-%dT%H:%M:%S%z
-}
-
-datehr() {
-    date -d "$*"
-}
-
-alias nbg="nautilus . &> /dev/null &"
-
-export PATH=$PATH:/usr/local/go/bin
-
-alias nvidia-reload='sudo rmmod nvidia_uvm && sleep 1 && sudo modprobe nvidia_uvm'
-
-alias thun='thunar >/dev/null 2>&1 &'
-
-alias c='clear'
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/daniel/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/daniel/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/daniel/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/daniel/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-export PATH="/home/daniel/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
