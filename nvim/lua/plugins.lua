@@ -97,7 +97,13 @@ require("lazy").setup({
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
         config = function()
-            require("mason").setup()
+            require("mason").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "ts_ls"
+                }
+            })
         end,
     },
     {
@@ -112,7 +118,7 @@ require("lazy").setup({
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             lspconfig.lua_ls.setup({ capabilities = capabilities })
             lspconfig.pyright.setup({ capabilities = capabilities })
-            lspconfig.tsserver.setup({ capabilities = capabilities })
+            lspconfig.ts_ls.setup({ capabilities = capabilities })
         end,
     },
 
@@ -125,12 +131,12 @@ require("lazy").setup({
         config = function()
             local cmp = require("cmp")
             cmp.setup({
-            mapping = {
-                ["<Tab>"] = cmp.mapping.select_next_item(),
-                ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-                ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            },
-            sources = { { name = "nvim_lsp" } },
+                mapping = {
+                    ["<Tab>"] = cmp.mapping.select_next_item(),
+                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                },
+                sources = { { name = "nvim_lsp" } },
             })
         end,
     },
