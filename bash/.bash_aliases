@@ -28,6 +28,37 @@ taskr() {
     ssh gcp -- "task $@"
 }
 
+tasky() {
+    local desc="$1"
+    local project="$2"
+    local date="$3"
+    local priority="$4"
+
+    if [[ -z "$desc" || -z "$project" || -z "$date" ]]; then
+        echo "usage: tasky \"DESCRIPTION\" PROJECT DATE|eod [H|M|L]"
+        return 1
+    fi
+
+    # Validate priority if provided
+    if [[ -n "$priority" && ! "$priority" =~ ^[HML]$ ]]; then
+        echo "priority must be one of: H, M, L"
+        return 1
+    fi
+
+    local due_arg
+    if [[ "$date" == "eod" ]]; then
+        due_arg="due:eod"
+    else
+        due_arg="due:$(dateiso "$date")"
+    fi
+
+    if [[ -n "$priority" ]]; then
+        taskr add "$desc" project:"$project" "$due_arg" priority:"$priority"
+    else
+        taskr add "$desc" project:"$project" "$due_arg"
+    fi
+}
+
 alias rodin='/opt/rodin/rodin >/dev/null 2>&1 &'
 
 alias activate-ml-env='conda activate ml_cuda12.2'
