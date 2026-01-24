@@ -23,3 +23,15 @@ Host aws
     User admin
     IdentityFile <KEYPAIR.pem>
     Port 22
+Host laptopts
+    HostName daniel-thinkpad-t14s-gen-1.tail5e2eb2.ts.net
+    User daniel
+Host pcts
+    HostName daniel-pc.tail5e2eb2.ts.net
+    User daniel
+Host pi3bts
+    HostName pi3b.tail5e2eb2.ts.net
+    User daniel
+Host pi5bts
+    HostName pi5.tail5e2eb2.ts.net
+    User daniel
