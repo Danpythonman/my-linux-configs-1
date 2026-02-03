@@ -225,6 +225,12 @@ I haven't used it much so it may be a bit buggy!
 
 My custom tools to extract pages from PDF files and merge PDF files. The source code for it is in a separate repository ([https://github.com/Danpythonman/pdfextract](https://github.com/Danpythonman/pdfextract)), and the `setup.sh` script installs it.
 
+### `restic/`
+
+[Restic](https://restic.readthedocs.io/en/stable/) is used to efficiently backup filesystems. It saves snapshots of files so that only updates are added after the files are initially backed up, saving a lot of space.
+
+Read [restic/README.md](./restic/README.md) for instructions on how to set up Restic.
+
 ### `ssh/`
 
 Contains the SSH configs that I use for various remote virtual machines and Raspberry Pis. Should be copied to `~/.ssh/config`.
