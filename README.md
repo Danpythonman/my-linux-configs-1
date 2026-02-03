@@ -165,6 +165,10 @@ These are the steps I take when I set up a new Linux (Debian) machine:
     cp tmux/.tmux.conf ~/.tmux.conf
     ```
 
+9. **Set up Tailscale**
+
+    [Tailscale](https://tailscale.com/) sets up a virtual private network so that all my devices can connect to each other easily. Very cool and user-friendly tool, should be able to install and configure from the instructions on the Tailscale website.
+
 ## Folders Overview
 
 The following is an overview of each of the folders in this project.
