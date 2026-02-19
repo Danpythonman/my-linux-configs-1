@@ -26,7 +26,7 @@ If this is a new system to back up, then you must initialize the repository. The
 
     Note that `<repo-name>` can be anything, it is just a prefix in the B2 bucket.
 
-Once the repo is initialized, you can start backing up the filesystem with the [pc-to-b2.sh](./pc-to-b2.sh) script. It already includes the directory paths that I backup on my PC.
+Once the repo is initialized, you can start backing up the filesystem with the [backup-pc.sh](./backup-pc.sh) script. It already includes the directory paths that I backup on my PC.
 
 After the system is backed up you can:
 
