@@ -25,7 +25,7 @@ alias thun='thunar >/dev/null 2>&1 &'
 alias c='clear'
 
 taskr() {
-    ssh gcp -- "task $@"
+    ssh pi5bts -- "task $@"
 }
 
 tasky() {
