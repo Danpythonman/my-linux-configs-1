@@ -66,3 +66,19 @@ alias activate-ml-env='conda activate ml_cuda12.2'
 alias py='python'
 
 alias p='python'
+
+pdf() {
+    if [ "$#" -eq 0 ]; then
+        echo "usage: pdf <file.pdf>" >&2
+        return 1
+    fi
+
+    # Join all arguments into a single path
+    local path="$*"
+
+    # Expand ~
+    path="${path/#\~/$HOME}"
+
+    # Launch evince (reuse running instance)
+    evince "$path" >/dev/null 2>&1 &
+}
