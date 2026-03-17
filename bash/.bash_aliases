@@ -82,3 +82,44 @@ pdf() {
     # Launch evince (reuse running instance)
     evince "$path" >/dev/null 2>&1 &
 }
+
+alias xcopy='xclip -selection clipboard'
+alias xpaste='xclip -selection clipboard -out'
+
+cb() {
+    if [[ "$1" != "from" || "$3" != "to" ]]; then
+        echo "Usage: cb from [clip|tmux|<ssh>:<path>] to [clip|tmux|<ssh>:<path>]"
+        return 1
+    fi
+
+    local src="$2" dst="$4"
+    local content
+
+    # Get content
+    if [[ "$src" == "clip" ]]; then
+        content=$(xclip -selection clipboard -out)
+    elif [[ "$src" == "tmux" ]]; then
+        content=$(tmux show-buffer)
+    elif [[ "$src" == *":"* ]]; then
+        local ssh_host="${src%%:*}"
+        local ssh_path="${src#*:}"
+        [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
+        content=$(ssh "$ssh_host" "cat '$ssh_path'")
+    else
+        content=$(cat "$src")
+    fi
+
+    # Send content
+    if [[ "$dst" == "clip" ]]; then
+        printf '%s' "$content" | xclip -selection clipboard -in
+    elif [[ "$dst" == "tmux" ]]; then
+        printf '%s' "$content" | tmux load-buffer -
+    elif [[ "$dst" == *":"* ]]; then
+        local ssh_host="${dst%%:*}"
+        local ssh_path="${dst#*:}"
+        [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
+        printf '%s' "$content" | ssh "$ssh_host" "cat > '$ssh_path'"
+    else
+        printf '%s' "$content" > "$dst"
+    fi
+}
