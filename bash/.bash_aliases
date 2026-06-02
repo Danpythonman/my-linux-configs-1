@@ -88,7 +88,7 @@ alias xpaste='xclip -selection clipboard -out'
 
 cb() {
     if [[ "$1" != "from" || "$3" != "to" ]]; then
-        echo "Usage: cb from [clip|tmux|<ssh>:<path>] to [clip|tmux|<ssh>:<path>]"
+        echo "Usage: cb from [clip|cb|tmux|<ssh>:<path>] to [clip|cb|tmux|<ssh>:<path>]"
         return 1
     fi
 
@@ -96,30 +96,36 @@ cb() {
     local content
 
     # Get content
-    if [[ "$src" == "clip" ]]; then
+    if [[ "$src" == "clip" || "$src" == "cb" ]]; then
         content=$(xclip -selection clipboard -out)
     elif [[ "$src" == "tmux" ]]; then
         content=$(tmux show-buffer)
+    elif [[ "$src" == "-" ]]; then
+        content=$(cat)
     elif [[ "$src" == *":"* ]]; then
         local ssh_host="${src%%:*}"
         local ssh_path="${src#*:}"
         [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
         content=$(ssh "$ssh_host" "cat '$ssh_path'")
     else
-        content=$(cat "$src")
+        echo "cb: unrecognized source '$src'" >&2
+        return 1
     fi
 
     # Send content
-    if [[ "$dst" == "clip" ]]; then
+    if [[ "$dst" == "clip" || "$dst" == "cb" ]]; then
         printf '%s' "$content" | xclip -selection clipboard -in
     elif [[ "$dst" == "tmux" ]]; then
         printf '%s' "$content" | tmux load-buffer -
+    elif [[ "$dst" == "-" ]]; then
+        printf '%s' "$content"
     elif [[ "$dst" == *":"* ]]; then
         local ssh_host="${dst%%:*}"
         local ssh_path="${dst#*:}"
         [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
         printf '%s' "$content" | ssh "$ssh_host" "cat > '$ssh_path'"
     else
-        printf '%s' "$content" > "$dst"
+        echo "cb: unrecognized destination '$dst'" >&2
+        return 1
     fi
 }
