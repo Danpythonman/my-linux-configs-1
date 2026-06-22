@@ -2,8 +2,12 @@ alias cd-semester="cd '/home/daniel/York/ENG Y5/Winter Term/'"
 
 alias cd-master="cd '/home/daniel/York/Masters/'"
 alias cd-masters="cd '/home/daniel/York/Masters/'"
+alias cd-eecs6444="cd '/home/daniel/York/Masters/EECS6444'"
+alias cd-rxpx="cd '/home/daniel/York/Masters/RxPx'"
 
 mastersdir=/home/daniel/York/Masters
+eecs6444dir=/home/daniel/York/Masters/EECS6444
+rxpxdir=/home/daniel/York/Masters/RxPx
 
 alias shh='systemctl suspend'
 
