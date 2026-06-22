@@ -1,8 +1,9 @@
 alias cd-semester="cd '/home/daniel/York/ENG Y5/Winter Term/'"
 
 alias cd-master="cd '/home/daniel/York/Masters/'"
-
 alias cd-masters="cd '/home/daniel/York/Masters/'"
+
+mastersdir=/home/daniel/York/Masters
 
 alias shh='systemctl suspend'
 
@@ -21,6 +22,7 @@ alias nbg="nautilus . &> /dev/null &"
 alias nvidia-reload='sudo rmmod nvidia_uvm && sleep 1 && sudo modprobe nvidia_uvm'
 
 alias thun='thunar >/dev/null 2>&1 &'
+alias dolph='dolphin . -stylesheet /home/daniel/my-linux-configs/dolphin/dolphin.qss >/dev/null 2>&1 &'
 
 alias c='clear'
 
@@ -61,11 +63,12 @@ tasky() {
 
 alias rodin='/opt/rodin/rodin >/dev/null 2>&1 &'
 
-alias activate-ml-env='conda activate ml_cuda12.2'
-
+alias p='python'
 alias py='python'
 
-alias p='python'
+npdoc() {
+    python -c "import numpy; print(numpy.info(numpy.$1))"
+}
 
 pdf() {
     if [ "$#" -eq 0 ]; then
@@ -127,5 +130,23 @@ cb() {
     else
         echo "cb: unrecognized destination '$dst'" >&2
         return 1
+    fi
+}
+
+resrename() {
+  local file="$1" arg1="$2" arg2="$3"
+  local ext="${file##*.}"
+  local dir="$(dirname "$file")"
+  local date="$(date -u +"%Y-%m-%d_%H-%M-%S-%3NZ")"
+  mv "$file" "$dir/$arg1-$arg2-$date.$ext"
+}
+
+ziproot() {
+    roots=$(unzip -Z1 "$1" | cut -d/ -f1 | sort -u)
+    count=$(echo "$roots" | wc -l)
+    if [ "$count" -eq 1 ]; then
+        echo "Contained in: $roots"
+    else
+        echo "Loose files ($count top-level entries)"
     fi
 }
