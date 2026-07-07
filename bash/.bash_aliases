@@ -113,7 +113,11 @@ cb() {
         local ssh_host="${src%%:*}"
         local ssh_path="${src#*:}"
         [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
-        content=$(ssh "$ssh_host" "cat '$ssh_path'")
+        if [[ -z "$ssh_host" ]]; then
+            content=$(cat "$ssh_path")
+        else
+            content=$(ssh "$ssh_host" "cat '$ssh_path'")
+        fi
     else
         echo "cb: unrecognized source '$src'" >&2
         return 1
@@ -130,7 +134,11 @@ cb() {
         local ssh_host="${dst%%:*}"
         local ssh_path="${dst#*:}"
         [[ -z "$ssh_path" ]] && ssh_path="/tmp/cb"
-        printf '%s' "$content" | ssh "$ssh_host" "cat > '$ssh_path'"
+        if [[ -z "$ssh_host" ]]; then
+            printf '%s' "$content" > "$ssh_path"
+        else
+            printf '%s' "$content" | ssh "$ssh_host" "cat > '$ssh_path'"
+        fi
     else
         echo "cb: unrecognized destination '$dst'" >&2
         return 1
@@ -153,4 +161,38 @@ ziproot() {
     else
         echo "Loose files ($count top-level entries)"
     fi
+}
+
+lint() {
+    local target="${1:-.}"
+    local BLUE='\033[1;34m'
+    local RED='\033[1;31m'
+    local GREEN='\033[1;32m'
+    local NC='\033[0m'
+
+    echo -e "${BLUE}==> [1/4] ruff format ($target)${NC}"
+    if ! uv run ruff format "$target"; then
+        echo -e "${RED}FAILED: ruff format failed${NC}" >&2
+        return 1
+    fi
+
+    echo -e "${BLUE}==> [2/4] ruff check --fix ($target)${NC}"
+    if ! uv run ruff check --fix "$target"; then
+        echo -e "${RED}FAILED: ruff check found unfixable issues${NC}" >&2
+        return 1
+    fi
+
+    echo -e "${BLUE}==> [3/4] ruff format ($target)${NC}"
+    if ! uv run ruff format "$target"; then
+        echo -e "${RED}FAILED: ruff format failed${NC}" >&2
+        return 1
+    fi
+
+    echo -e "${BLUE}==> [4/4] pyright ($target)${NC}"
+    if ! uv run pyright "$target"; then
+        echo -e "${RED}FAILED: pyright found type errors${NC}" >&2
+        return 1
+    fi
+
+    echo -e "${GREEN}==> All checks passed${NC}"
 }
